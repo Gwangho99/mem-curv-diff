@@ -1,5 +1,5 @@
 [project]
-name = "Localizing Memorized Regions in Diffusion Models via Coordinate-Wise Curvature Differences"
+name = "localizing-memorized-regions-diffusion-curvature"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"

@@ -26,30 +26,34 @@ if __name__ == "__main__":
     import os
 
     parser = argparse.ArgumentParser(description='Convert parquet to jsonl')
-    parser.add_argument('input_file', nargs='?', help='Input parquet file path')
+    parser.add_argument('--input_file', type=str, help='Input parquet file path')
     args = parser.parse_args()
 
     if args.input_file:
-        input_path = args.input_file
-        output_path = input_path.replace('.parquet', '.jsonl')
-        convert_parquet_to_jsonl(input_path, output_path)
+        name = args.input_file
     else:
-        # Default behavior if no argument provided
         name = "sdv2_bb_attack_gt_verify.parquet"
+
+    if os.path.exists(name):
         jsonl_name = name.replace(".parquet", ".jsonl")
+        convert_parquet_to_jsonl(name, jsonl_name)
         
-        if os.path.exists(name):
-            convert_parquet_to_jsonl(name, jsonl_name)
+        # Filter for TV cases
+        tv_output_name = jsonl_name.replace(".jsonl", "_TV.jsonl")
+        print(f"Filtering {jsonl_name} for 'TV' cases...")
+        df = pd.read_json(jsonl_name, lines=True)
+        if 'overfit_type' in df.columns:
+            df_tv = df[df['overfit_type'] == 'TV']
+            df_tv.to_json(tv_output_name, orient='records', lines=True, force_ascii=False)
+            print(f"Saved {len(df_tv)} TV cases to {tv_output_name}")
             
-            # Filter for TV cases
-            tv_output_name = jsonl_name.replace(".jsonl", "_TV.jsonl")
-            print(f"Filtering {jsonl_name} for 'TV' cases...")
-            df = pd.read_json(jsonl_name, lines=True)
-            if 'overfit_type' in df.columns:
-                df_tv = df[df['overfit_type'] == 'TV']
-                df_tv.to_json(tv_output_name, orient='records', lines=True, force_ascii=False)
-                print(f"Saved {len(df_tv)} TV cases to {tv_output_name}")
-            else:
-                print("Column 'overfit_type' not found in data.")
+            # Filter for MV/RV cases
+            mvrv_output_name = jsonl_name.replace(".jsonl", "_MVRV.jsonl")
+            df_mvrv = df[df['overfit_type'].isin(['MV', 'RV', 'MVRV'])]
+            if len(df_mvrv) > 0:
+                df_mvrv.to_json(mvrv_output_name, orient='records', lines=True, force_ascii=False)
+                print(f"Saved {len(df_mvrv)} MVRV cases to {mvrv_output_name}")
         else:
-            print("Usage: python parquet_to_jsonl.py <input_parquet_file>")
+            print("Column 'overfit_type' not found in data.")
+    else:
+        print("Usage: python parquet_to_jsonl.py --input_file <input_parquet_file>")

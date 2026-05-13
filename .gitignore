@@ -1,3 +1,5 @@
+jupyter.sh
+st.sh
 # Python
 __pycache__/
 *.py[cod]
@@ -44,6 +46,7 @@ ENV/
 *.log
 
 # Project Specific Data/Results
+templates/
 Bright Ending/
 latex_table/
 backup/

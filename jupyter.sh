@@ -11,10 +11,9 @@
 
 hostname
 
-uv lock
-uv sync
+
 uv run -- which python        # Unix/macOS
 uv run -- python -V
-uv run jupyter notebook --notebook-dir=/home/gpuadmin/ghkim/onestep-extraction --ip=0.0.0.0 --port=12345 --no-browser --NotebookApp.token='788c361213a007f5b050d7e0ebfa5226f5537a495e658800'
+uv run jupyter notebook --notebook-dir=/home/gpuadmin/ghkim/2026ICML --ip=0.0.0.0 --port=12345 --no-browser --NotebookApp.token='788c361213a007f5b050d7e0ebfa5226f5537a495e658800'
 
 exit 0

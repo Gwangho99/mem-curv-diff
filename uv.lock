@@ -3302,6 +3302,66 @@ wheels = [
 ]
 
 [[package]]
+name = "localizing-memorized-regions-diffusion-curvature"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "accelerate" },
+    { name = "datasets", version = "3.1.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "datasets", version = "3.2.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
+    { name = "diffusers" },
+    { name = "fire" },
+    { name = "huggingface-hub" },
+    { name = "jupyter" },
+    { name = "k-diffusion" },
+    { name = "matplotlib", version = "3.7.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "matplotlib", version = "3.9.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
+    { name = "matplotlib", version = "3.10.8", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "mediapy" },
+    { name = "notebook", version = "7.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "notebook", version = "7.5.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
+    { name = "numpy" },
+    { name = "pandas", version = "2.0.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9' or python_full_version >= '3.12'" },
+    { name = "pandas", version = "2.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9' and python_full_version < '3.12'" },
+    { name = "scikit-image", version = "0.21.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "scikit-image", version = "0.24.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
+    { name = "scikit-image", version = "0.25.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
+    { name = "scikit-image", version = "0.26.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "scikit-learn", version = "1.3.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "scikit-learn", version = "1.6.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
+    { name = "scikit-learn", version = "1.7.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
+    { name = "scikit-learn", version = "1.8.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "seaborn" },
+    { name = "torch" },
+    { name = "torchvision" },
+    { name = "tqdm" },
+    { name = "transformers" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "accelerate", specifier = "==0.21.0" },
+    { name = "datasets" },
+    { name = "diffusers", specifier = "==0.18.2" },
+    { name = "fire", specifier = ">=0.7.1" },
+    { name = "huggingface-hub", specifier = "==0.23.5" },
+    { name = "jupyter", specifier = ">=1.1.1" },
+    { name = "k-diffusion", specifier = ">=0.1.1.post1" },
+    { name = "matplotlib", specifier = ">=3.7.5" },
+    { name = "mediapy", specifier = ">=1.2.4" },
+    { name = "notebook", specifier = ">=7.3.3" },
+    { name = "numpy", specifier = ">=1.24.4" },
+    { name = "pandas", specifier = ">=2.0.3" },
+    { name = "scikit-image", specifier = ">=0.21.0" },
+    { name = "scikit-learn", specifier = ">=1.3.2" },
+    { name = "seaborn", specifier = ">=0.13.2" },
+    { name = "torch", specifier = "==2.3.1" },
+    { name = "torchvision", specifier = ">=0.18.1" },
+    { name = "tqdm", specifier = ">=4.67.1" },
+    { name = "transformers", specifier = "==4.41.2" },
+]
+
+[[package]]
 name = "markupsafe"
 version = "2.1.5"
 source = { registry = "https://pypi.org/simple" }
@@ -4290,66 +4350,6 @@ version = "12.1.105"
 source = { registry = "https://pypi.org/simple" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/da/d3/8057f0587683ed2fcd4dbfbdfdfa807b9160b809976099d36b8f60d08f03/nvidia_nvtx_cu12-12.1.105-py3-none-manylinux1_x86_64.whl", hash = "sha256:dc21cf308ca5691e7c04d962e213f8a4aa9bbfa23d95412f452254c2caeb09e5", size = 99138, upload-time = "2023-04-19T15:48:43.556Z" },
-]
-
-[[package]]
-name = "onestep-extraction"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "accelerate" },
-    { name = "datasets", version = "3.1.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
-    { name = "datasets", version = "3.2.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
-    { name = "diffusers" },
-    { name = "fire" },
-    { name = "huggingface-hub" },
-    { name = "jupyter" },
-    { name = "k-diffusion" },
-    { name = "matplotlib", version = "3.7.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
-    { name = "matplotlib", version = "3.9.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
-    { name = "matplotlib", version = "3.10.8", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
-    { name = "mediapy" },
-    { name = "notebook", version = "7.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
-    { name = "notebook", version = "7.5.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
-    { name = "numpy" },
-    { name = "pandas", version = "2.0.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9' or python_full_version >= '3.12'" },
-    { name = "pandas", version = "2.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9' and python_full_version < '3.12'" },
-    { name = "scikit-image", version = "0.21.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
-    { name = "scikit-image", version = "0.24.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
-    { name = "scikit-image", version = "0.25.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
-    { name = "scikit-image", version = "0.26.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
-    { name = "scikit-learn", version = "1.3.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
-    { name = "scikit-learn", version = "1.6.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
-    { name = "scikit-learn", version = "1.7.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
-    { name = "scikit-learn", version = "1.8.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
-    { name = "seaborn" },
-    { name = "torch" },
-    { name = "torchvision" },
-    { name = "tqdm" },
-    { name = "transformers" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "accelerate", specifier = "==0.21.0" },
-    { name = "datasets" },
-    { name = "diffusers", specifier = "==0.18.2" },
-    { name = "fire", specifier = ">=0.7.1" },
-    { name = "huggingface-hub", specifier = "==0.23.5" },
-    { name = "jupyter", specifier = ">=1.1.1" },
-    { name = "k-diffusion", specifier = ">=0.1.1.post1" },
-    { name = "matplotlib", specifier = ">=3.7.5" },
-    { name = "mediapy", specifier = ">=1.2.4" },
-    { name = "notebook", specifier = ">=7.3.3" },
-    { name = "numpy", specifier = ">=1.24.4" },
-    { name = "pandas", specifier = ">=2.0.3" },
-    { name = "scikit-image", specifier = ">=0.21.0" },
-    { name = "scikit-learn", specifier = ">=1.3.2" },
-    { name = "seaborn", specifier = ">=0.13.2" },
-    { name = "torch", specifier = "==2.3.1" },
-    { name = "torchvision", specifier = ">=0.18.1" },
-    { name = "tqdm", specifier = ">=4.67.1" },
-    { name = "transformers", specifier = "==4.41.2" },
 ]
 
 [[package]]

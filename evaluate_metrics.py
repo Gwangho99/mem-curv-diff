@@ -8,8 +8,8 @@ from PIL import Image
 
 from utils.data_loaders import load_tv_data, load_nmem_data
 
-def evaluate_global_iou(data_dir, metric_suffix="score_diff_bad"):
-    print(f"Evaluating Global IoU in: {data_dir}")
+def evaluate_metrics(data_dir, metric_suffix="score_diff"):
+    print(f"Evaluating Metrics (IoU, mIoU, Acc) in: {data_dir}")
     
     # Needs metadata loading
     try:
@@ -30,8 +30,8 @@ def evaluate_global_iou(data_dir, metric_suffix="score_diff_bad"):
         # But for speed in this test, maybe subset.
         # Let's use 100 TV and 100 Nmem for quick test.
         
-        tv_maps, tv_masks = load_tv_data(data_dir, tv_jsonl, metadata)
-        nmem_maps, nmem_masks = load_nmem_data(data_dir, nmem_prompts)
+        tv_maps, tv_masks = load_tv_data(data_dir, tv_jsonl, metadata, metric_name=metric_suffix)
+        nmem_maps, nmem_masks = load_nmem_data(data_dir, nmem_prompts, metric_name=metric_suffix)
         
         all_maps = np.concatenate([tv_maps, nmem_maps])
         all_masks = np.concatenate([tv_masks, nmem_masks])
@@ -54,6 +54,7 @@ def evaluate_global_iou(data_dir, metric_suffix="score_diff_bad"):
         
         best_miou = 0.0
         best_global_iou = 0.0
+        best_acc = 0.0
         
         print("\nScanning Thresholds...")
         
@@ -85,17 +86,15 @@ def evaluate_global_iou(data_dir, metric_suffix="score_diff_bad"):
             if g_iou > best_global_iou:
                 best_global_iou = g_iou
                 
-        print(f"\n[Results Comparison]")
-        print(f"  Best Mean IoU (mIoU): {best_miou:.4f} (Avg of sample IoUs)")
-        print(f"  Best Global IoU:      {best_global_iou:.4f} (Total Inter / Total Union)")
-        
-        print("\n[Interpretation]")
-        diff = best_global_iou - best_miou
-        print(f"  Difference: +{diff:.4f}")
-        if diff > 0.1:
-            print("  -> Global IoU is significantly higher. This confirms that low mIoU is caused by 'Empty GT' samples being penalized heavily for small noise.")
-        else:
-            print("  -> Difference is small.")
+            # C. Accuracy
+            acc = (pred == gt).mean()
+            if acc > best_acc:
+                best_acc = acc
+                
+        print(f"\n[Results]")
+        print(f"  IoU (Global):  {best_global_iou:.4f}")
+        print(f"  mIoU (Mean):   {best_miou:.4f}")
+        print(f"  Accuracy:      {best_acc:.4f}")
             
     except Exception as e:
         print(f"Error: {e}")
@@ -103,5 +102,8 @@ def evaluate_global_iou(data_dir, metric_suffix="score_diff_bad"):
         traceback.print_exc()
 
 if __name__ == "__main__":
-    default_dir = "ablation_results_score_diff_bad/v1/s49_e49"
-    evaluate_global_iou(default_dir)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data_dir", type=str, default="metrics_outputs_v1/TV_metric_maps")
+    parser.add_argument("--metric_name", type=str, default="cov", help="Name of the metric to evaluate (e.g. cov, score_diff, cov_bad)")
+    args = parser.parse_args()
+    evaluate_metrics(args.data_dir, metric_suffix=args.metric_name)

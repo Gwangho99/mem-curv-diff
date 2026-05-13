@@ -22,7 +22,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_version", type=int, default=1)
     parser.add_argument("--metrics", nargs="+", default=["cov", "score_diff"], help="Metrics to compute: cov, score_diff")
-    #parser.add_argument("--use_bad_model", action="store_true")
+    parser.add_argument("--use_bad_model", action="store_true", help="Use bad model for cov_bad and score_diff_bad")
 
     parser.add_argument("--seed", type=int, default=42)
 
@@ -44,21 +44,27 @@ def main():
     if args.model_version == 1:
         args.model_id = "CompVis/stable-diffusion-v1-4"
         args.dataset = "sdv1-4_bb_attack_gt_verify_TV.jsonl"
-        args.bad_model_id = "CompVis/stable-diffusion-v1-1"
-        print(f"Loading bad model UNet: {args.bad_model_id}")
-        bad_unet = UNet2DConditionModel.from_pretrained(
-            args.bad_model_id, subfolder="unet", torch_dtype=torch.float16
-        ).to(device)
-        bad_unet.eval()
+        if args.use_bad_model:
+            args.bad_model_id = "CompVis/stable-diffusion-v1-1"
+            print(f"Loading bad model UNet: {args.bad_model_id}")
+            bad_unet = UNet2DConditionModel.from_pretrained(
+                args.bad_model_id, subfolder="unet", torch_dtype=torch.float16
+            ).to(device)
+            bad_unet.eval()
+        else:
+            bad_unet = None
     elif args.model_version == 2:
         args.model_id = "Manojb/stable-diffusion-2-1-base"
         args.dataset = "sdv2_bb_attack_gt_verify_TV.jsonl"
-        args.bad_model_id = "Manojb/stable-diffusion-2-base"
-        print(f"Loading bad model UNet: {args.bad_model_id}")
-        bad_unet = UNet2DConditionModel.from_pretrained(
-            args.bad_model_id, subfolder="unet", torch_dtype=torch.float16
-        ).to(device)
-        bad_unet.eval()
+        if args.use_bad_model:
+            args.bad_model_id = "Manojb/stable-diffusion-2-base"
+            print(f"Loading bad model UNet: {args.bad_model_id}")
+            bad_unet = UNet2DConditionModel.from_pretrained(
+                args.bad_model_id, subfolder="unet", torch_dtype=torch.float16
+            ).to(device)
+            bad_unet.eval()
+        else:
+            bad_unet = None
     
     
     # Output Dir
