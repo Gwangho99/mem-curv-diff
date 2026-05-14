@@ -27,8 +27,7 @@ In this step, we match memorized samples (prompts and seeds) with original templ
 * `parquet_to_jsonl.py`: Converts the parquet metadata format into a JSONL format for easy loading.
 * **Example Usage:** (See `verify_sdv1_wb_attack.sh` for an end-to-end example)
 
-> [!IMPORTANT]
-> **Note on Reproducibility:** The number of detected memorization prompts and seeds in Step 1 can vary slightly depending on the environment (e.g., CUDA version, NVIDIA driver, and library versions of `torch` or `diffusers`). This is due to hardware-level floating-point non-determinism in diffusion models. For strict replication of the paper's results, it is recommended to use the provided `.parquet` or `.jsonl` files directly.
+*Note: Due to hardware-level floating-point non-determinism in diffusion models (e.g., varying CUDA or library versions), the exact number of detected memorization prompts and seeds in Step 1 may vary slightly across different environments.*
 
 
 ### Step 2: Metric Map Generation (Localization)
