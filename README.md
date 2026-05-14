@@ -71,14 +71,6 @@ In this step, we evaluate the generated `.npy` localization maps against the GT 
   ```
 
 ### Interactive Exploration (Jupyter)
-For interactive visualization and exploratory analysis of the diffusion process, a Jupyter Notebook is provided. You can launch the notebook server using `uv`:
-
-```bash
-# Run locally
-uv run jupyter notebook
-
-# Or submit as a Slurm job using the provided script
-sbatch jupyter.sh
-```
-*   Check out `stable_diffusion_sampling.ipynb` for step-by-step visualizations of the coordinate-wise curvature difference.
+For interactive visualization and exploratory analysis of the diffusion process, check out the provided Jupyter Notebook:
+* `stable_diffusion_sampling.ipynb`: Contains step-by-step visualizations of the coordinate-wise curvature difference.
 
