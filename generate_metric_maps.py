@@ -37,13 +37,17 @@ def main():
     parser.add_argument("--max_seeds_per_prompt", type=int, default=4)
     
     parser.add_argument("--output_dir", type=str, default=None, help="Custom output directory")
+    parser.add_argument("--dataset", type=str, default=None, help="Custom dataset jsonl file")
+    parser.add_argument("--skip_nmem", action="store_true", help="Skip Nmem baseline generation")
     
     args = parser.parse_args()
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Device: {device}")
+    
     if args.model_version == 1:
         args.model_id = "CompVis/stable-diffusion-v1-4"
-        args.dataset = "sdv1-4_bb_attack_gt_verify_TV.jsonl"
+        if args.dataset is None:
+            args.dataset = "sdv1-4_bb_attack_gt_verify_TV.jsonl"
         if args.use_bad_model:
             args.bad_model_id = "CompVis/stable-diffusion-v1-1"
             print(f"Loading bad model UNet: {args.bad_model_id}")
@@ -55,7 +59,8 @@ def main():
             bad_unet = None
     elif args.model_version == 2:
         args.model_id = "Manojb/stable-diffusion-2-1-base"
-        args.dataset = "sdv2_bb_attack_gt_verify_TV.jsonl"
+        if args.dataset is None:
+            args.dataset = "sdv2_bb_attack_gt_verify_TV.jsonl"
         if args.use_bad_model:
             args.bad_model_id = "Manojb/stable-diffusion-2-base"
             print(f"Loading bad model UNet: {args.bad_model_id}")
@@ -142,6 +147,34 @@ def main():
                      
             except Exception as e:
                 raise Exception(f"Error processing prompt {prompt_idx} seed {seed}: {e}")
+
+    # Process Nmem Dataset
+    if not args.skip_nmem:
+        nmem_file = "sd1_nmem.txt" if args.model_version == 1 else "sd2_nmem.txt"
+        if os.path.exists(nmem_file):
+            print(f"Loading Nmem dataset from {nmem_file}...")
+        with open(nmem_file, "r") as f:
+            nmem_prompts = [line.strip() for line in f if line.strip()]
+        
+        num_nmem_to_process = min(len(nmem_prompts), len(dataset))
+        print(f"Processing {num_nmem_to_process} Nmem prompts for false-positive evaluation.")
+        
+        for prompt_idx in tqdm(range(num_nmem_to_process)):
+            prompt = nmem_prompts[prompt_idx]
+            seed = 0  # Default seed for Nmem
+            
+            try:
+                if bad_unet is not None:
+                    metrics = compute_metrics_for_prompt_with_bad_model(prompt, pipe, bad_unet, args, seed=seed)
+                else:
+                    metrics = compute_metrics_for_prompt(prompt, pipe, args, seed=seed)
+                
+                for name, m_map in metrics.items():
+                    save_name = f"nmem_prompt_{prompt_idx:04d}_seed_{seed:02d}_{name}.npy"
+                    save_path = os.path.join(metric_save_dir, save_name)
+                    np.save(save_path, m_map)
+            except Exception as e:
+                print(f"Error processing Nmem prompt {prompt_idx}: {e}")
 
 if __name__ == "__main__":
     main()

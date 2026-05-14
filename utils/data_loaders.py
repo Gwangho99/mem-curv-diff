@@ -49,25 +49,25 @@ def load_tv_data(metric_dir, jsonl_data, metadata, metric_name="score_diff"):
                 m_map = np.array(img_map)
             
             if t_idx < 0 or t_idx >= len(metadata):
-                continue
-            
-            mask_rel = metadata.iloc[t_idx]["mask_file"]
-            mask_abs = os.path.join(BASE_DIR, mask_rel)
-            if not os.path.exists(mask_abs):
-                mask_abs_alt = os.path.join(os.path.dirname(METADATA_PATH), os.path.basename(mask_rel))
-                if os.path.exists(mask_abs_alt):
-                    mask_abs = mask_abs_alt
-                else:
+                gt_mask = np.ones((256, 256), dtype=float)
+            else:
+                mask_rel = metadata.iloc[t_idx]["mask_file"]
+                mask_abs = os.path.join(BASE_DIR, mask_rel)
+                if not os.path.exists(mask_abs):
+                    mask_abs_alt = os.path.join(os.path.dirname(METADATA_PATH), os.path.basename(mask_rel))
+                    if os.path.exists(mask_abs_alt):
+                        mask_abs = mask_abs_alt
+                    else:
+                        continue
+                
+                try:
+                    img = Image.open(mask_abs).convert("L")
+                    if img.size != (256, 256):
+                        img = img.resize((256, 256), Image.NEAREST)
+                    mask_arr = np.array(img).astype(np.float32) / 255.0
+                    gt_mask = (mask_arr > 0.5).astype(float)
+                except Exception:
                     continue
-            
-            try:
-                img = Image.open(mask_abs).convert("L")
-                if img.size != (256, 256):
-                    img = img.resize((256, 256), Image.NEAREST)
-                mask_arr = np.array(img).astype(np.float32) / 255.0
-                gt_mask = (mask_arr > 0.5).astype(float)
-            except Exception:
-                continue
             
             raw_maps.append(m_map)
             masks.append(gt_mask)

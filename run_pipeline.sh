@@ -13,36 +13,45 @@ echo "============================================================"
 # -------------------------------------------------------------------------
 echo -e "\n[Step 1] Ground-Truth Dataset Preparation"
 echo "Synthesizing images..."
-python synthall_from_parquet.py \
+uv run python synthall_from_parquet.py \
     --model="CompVis/stable-diffusion-v1-4" \
     --outfolder=sdv1-4_bb_synthall/ \
     --parquet_file=groundtruth_parquets/sdv1_bb_edge_groundtruth.parquet \
     --n_seeds=4
 
 echo "Gathering labels and matching templates..."
-python gather_groundtruth_labels.py \
+uv run python gather_groundtruth_labels.py \
     --gen_folder=sdv1-4_bb_synthall/ \
     --out_parquet_file=sdv1-4_bb_attack_gt_verify.parquet \
     --parquet_file=groundtruth_parquets/sdv1_bb_edge_groundtruth.parquet \
     --download_reals=True
 
 echo "Converting parquet to jsonl..."
-python parquet_to_jsonl.py --input_file sdv1-4_bb_attack_gt_verify.parquet
+uv run python parquet_to_jsonl.py --input_file sdv1-4_bb_attack_gt_verify.parquet
 
 
 # -------------------------------------------------------------------------
 # STEP 2: Metric Map Generation (Localization)
 # -------------------------------------------------------------------------
 echo -e "\n[Step 2] Generating Metric Maps..."
-# Generates .npy metric maps for both Curvature (cov) and Score Difference (score_diff)
+# Generates .npy metric maps for Curvature (cov) and Score Difference (score_diff)
+# This step automatically processes BOTH the memorized (TV) dataset and the non-memorized (Nmem) dataset.
 # Options:
 #  (Default) -> Computes diffs between `cond` and `uncond`. Produces: cov, score_diff
 #  --use_bad_model -> Computes diffs between `cond` and `bad_cond` (SDv1-1). Produces: cov_bad, score_diff_bad
 
-python generate_metric_maps.py \
+uv run python generate_metric_maps.py \
     --model_version 1 \
     --metrics cov score_diff \
     --output_dir metrics_outputs_v1/TV_metric_maps
+
+# Generate metric maps for MVRV cases
+uv run python generate_metric_maps.py \
+    --model_version 1 \
+    --dataset sdv1-4_bb_attack_gt_verify_MVRV.jsonl \
+    --skip_nmem \
+    --metrics cov score_diff \
+    --output_dir metrics_outputs_v1/MVRV_metric_maps
 
 # Example to generate bad_model baselines (uncomment to run):
 # python generate_metric_maps.py \
@@ -59,15 +68,14 @@ echo "Metric maps generated successfully."
 # -------------------------------------------------------------------------
 echo -e "\n[Step 3] Evaluating Metrics (IoU, mIoU, Acc)..."
 echo "Evaluating cov (Coordinate-Wise Curvature):"
-python evaluate_metrics.py \
+uv run python evaluate_metrics.py \
     --data_dir metrics_outputs_v1/TV_metric_maps \
     --metric_name cov
 
 echo "Evaluating score_diff:"
-python evaluate_metrics.py \
+uv run python evaluate_metrics.py \
     --data_dir metrics_outputs_v1/TV_metric_maps \
     --metric_name score_diff
-
 
 echo -e "\n============================================================"
 echo " Pipeline Finished Successfully!"
