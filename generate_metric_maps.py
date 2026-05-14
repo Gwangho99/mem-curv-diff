@@ -8,8 +8,8 @@ import glob
 import argparse
 from diffusers import DDIMScheduler, StableDiffusionPipeline, UNet2DConditionModel
 from types import SimpleNamespace
-from optim_utils import get_dataset, set_random_seed
-from metric_utils import (
+from utils.optim_utils import get_dataset, set_random_seed
+from utils.metric_utils import (
     compute_metrics_for_prompt,
     compute_metrics_for_prompt_with_bad_model
 )
@@ -150,7 +150,7 @@ def main():
 
     # Process Nmem Dataset
     if not args.skip_nmem:
-        nmem_file = "sd1_nmem.txt" if args.model_version == 1 else "sd2_nmem.txt"
+        nmem_file = "data/sd1_nmem.txt" if args.model_version == 1 else "data/sd2_nmem.txt"
         if os.path.exists(nmem_file):
             print(f"Loading Nmem dataset from {nmem_file}...")
         with open(nmem_file, "r") as f:

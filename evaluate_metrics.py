@@ -60,7 +60,7 @@ def evaluate_metrics(data_dir, metric_suffix="score_diff", dataset_path="sdv1-4_
     try:
         import pandas as pd
         metadata_path = "templates/metadata.parquet"
-        nmem_file = "sd1_nmem.txt" if "sdv1" in dataset_path else "sd2_nmem.txt"
+        nmem_file = "data/sd1_nmem.txt" if "sdv1" in dataset_path else "data/sd2_nmem.txt"
         
         metadata = pd.read_parquet(metadata_path)
         

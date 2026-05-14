@@ -15,7 +15,7 @@ import torchvision.transforms as transforms
 import datasets
 from datasets import load_dataset, Dataset
 
-from io_utils import *
+from utils.io_utils import *
 
 
 def set_random_seed(seed=0):
@@ -59,7 +59,7 @@ def get_dataset(dataset_name, pipe=None):
         dataset = load_jsonlines(dataset_name)
         prompt_key = "caption"
     elif dataset_name.endswith(".txt"):
-        # txt 파일 지원: 한 줄에 하나의 프롬프트
+        # txt file support: one prompt per line
         with open(dataset_name, 'r', encoding='utf-8') as f:
             prompts = [line.strip() for line in f if line.strip()]
         dataset = [{"caption": prompt} for prompt in prompts]
