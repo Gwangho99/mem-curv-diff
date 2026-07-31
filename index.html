@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Localizing Memorized Regions in Diffusion Models</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0d1117;
+      --fg: #f4f7fb;
+      --muted: #d2dae4;
+      --rule: #30363d;
+      --blue: #1688ca;
+      --gray: #55585d;
+      --red: #b91422;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(1200px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 26px 0 56px;
+    }
+
+    h1 {
+      margin: 0 auto 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+      font-size: clamp(2rem, 4vw, 3.15rem);
+      line-height: 1.18;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .authors {
+      margin: 34px 0 28px;
+      text-align: center;
+      font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+      color: var(--fg);
+    }
+
+    .links {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 0;
+      margin-bottom: 30px;
+    }
+
+    .links a {
+      display: inline-flex;
+      min-height: 52px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 22px;
+      color: #fff;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      border-bottom: 4px solid transparent;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      border-bottom-color: #58a6ff;
+    }
+
+    .project {
+      background: var(--gray);
+    }
+
+    .page {
+      background: var(--blue);
+    }
+
+    .arxiv {
+      background: var(--gray);
+    }
+
+    .paper {
+      background: var(--red);
+    }
+
+    .figure {
+      display: block;
+      width: min(760px, 72vw);
+      margin: 0 auto 34px;
+      background: #fff;
+    }
+
+    .summary {
+      margin: 0 auto 34px;
+      max-width: 1180px;
+      font-size: clamp(1.25rem, 2.5vw, 1.85rem);
+      color: var(--fg);
+    }
+
+    .citation {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .citation h2 {
+      margin: 0 0 12px;
+      font-size: 1.4rem;
+    }
+
+    pre {
+      overflow-x: auto;
+      margin: 0;
+      padding: 18px 20px;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      background: #161b22;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    @media (max-width: 680px) {
+      main {
+        width: min(100% - 28px, 1200px);
+        padding-top: 20px;
+      }
+
+      .authors {
+        margin: 24px 0 22px;
+      }
+
+      .links {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .links a {
+        min-height: 44px;
+        padding: 0 14px;
+        font-size: .85rem;
+      }
+
+      .figure {
+        width: min(100%, 760px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>[ICML '26] Localizing Memorized Regions in Diffusion Models via Coordinate-Wise Curvature Differences</h1>
+
+    <p class="authors">Gwangho Kim, Sungyoon Lee</p>
+
+    <nav class="links" aria-label="Project links">
+      <a class="project" href="https://github.com/Gwangho99/mem-curv-diff">Project</a>
+      <a class="page" href="./">Page</a>
+      <a class="arxiv" href="https://arxiv.org/abs/2605.26756">Arxiv</a>
+      <a class="paper" href="https://arxiv.org/abs/2605.26756">2605.26756</a>
+    </nav>
+
+    <img class="figure" src="figure2.png" alt="Overview figure for Localizing Memorized Regions in Diffusion Models">
+
+    <p class="summary">
+      This repository contains the official code for the ICML '26 paper
+      "Localizing Memorized Regions in Diffusion Models via Coordinate-Wise Curvature Differences".
+    </p>
+
+    <section class="citation" aria-labelledby="citation-heading">
+      <h2 id="citation-heading">Citation</h2>
+      <pre><code>@inproceedings{
+  kim2026localizing,
+  title={Localizing Memorized Regions in Diffusion Models via Coordinate-Wise Curvature Differences},
+  author={Gwangho Kim and Sungyoon Lee},
+  booktitle={Forty-third International Conference on Machine Learning},
+  year={2026},
+}</code></pre>
+    </section>
+  </main>
+</body>
+</html>

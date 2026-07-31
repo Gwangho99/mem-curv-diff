@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="figure2.png" alt="Overview figure for Localizing Memorized Regions in Diffusion Models" width="100%">
+  <img src="figure2.png" alt="Overview figure for Localizing Memorized Regions in Diffusion Models" width="70%">
 </p>
 
 # Localizing Memorized Regions in Diffusion Models via Coordinate-Wise Curvature Differences
