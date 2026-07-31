@@ -1,10 +1,29 @@
+<h1 align="center">[ICML '26] Localizing Memorized Regions in Diffusion Models via Coordinate-Wise Curvature Differences</h1>
+
 <p align="center">
-  <img src="figure2.png" alt="Overview figure for Localizing Memorized Regions in Diffusion Models" width="70%">
+  <strong>Gwangho Kim, Sungyoon Lee</strong>
 </p>
 
-# Localizing Memorized Regions in Diffusion Models via Coordinate-Wise Curvature Differences
+<p align="center">
+  <a href="https://github.com/Gwangho99/mem-curv-diff">
+    <img src="https://img.shields.io/badge/PROJECT-555555?style=for-the-badge&logo=github&logoColor=white" alt="Project">
+  </a>
+  <a href="https://gwangho99.github.io/mem-curv-diff/">
+    <img src="https://img.shields.io/badge/PAGE-1688CA?style=for-the-badge" alt="Page">
+  </a>
+  <a href="https://arxiv.org/abs/2605.26756">
+    <img src="https://img.shields.io/badge/ARXIV-555555?style=for-the-badge" alt="arXiv">
+  </a>
+  <a href="https://arxiv.org/abs/2605.26756">
+    <img src="https://img.shields.io/badge/2605.26756-B91422?style=for-the-badge" alt="2605.26756">
+  </a>
+</p>
 
-Official repository for **"Localizing Memorized Regions in Diffusion Models via Coordinate-Wise Curvature Differences"** (ICML 2026).
+<p align="center">
+  <img src="figure2.png" alt="Overview figure for Localizing Memorized Regions in Diffusion Models" width="65%">
+</p>
+
+This repository contains the official code for the ICML '26 paper **"Localizing Memorized Regions in Diffusion Models via Coordinate-Wise Curvature Differences"**.
 
 This repository is built upon [ryanwebster90/onestep-extraction](https://github.com/ryanwebster90/onestep-extraction) by Ryan Webster. We sincerely thank the authors for providing their implementation of "A Reproducible Extraction of Training Images from Diffusion Models".
 
