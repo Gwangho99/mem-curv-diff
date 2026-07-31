@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="figure2.png" alt="Overview figure for Localizing Memorized Regions in Diffusion Models" width="100%">
+</p>
+
 # Localizing Memorized Regions in Diffusion Models via Coordinate-Wise Curvature Differences
 
 Official repository for **"Localizing Memorized Regions in Diffusion Models via Coordinate-Wise Curvature Differences"** (ICML 2026).
@@ -73,3 +77,16 @@ In this step, we evaluate the generated `.npy` localization maps against the GT 
 For interactive visualization and exploratory analysis of the diffusion process, check out the provided Jupyter Notebook:
 * `stable_diffusion_sampling.ipynb`: Contains step-by-step visualizations of the coordinate-wise curvature difference.
 
+## Citation
+
+If you find this repository useful, please cite our paper:
+
+```bibtex
+@inproceedings{
+  kim2026localizing,
+  title={Localizing Memorized Regions in Diffusion Models via Coordinate-Wise Curvature Differences},
+  author={Gwangho Kim and Sungyoon Lee},
+  booktitle={Forty-third International Conference on Machine Learning},
+  year={2026},
+}
+```
